@@ -1,0 +1,53 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dh-proxmox"
+version = "0.1.0"
+description = "Read-only Proxmox VE integration plugin for Deckhand"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.12"
+dependencies = [
+  "deckhand-control-plane @ git+https://github.com/coollyninja/deckhand.git@6c966552146ec5a5aefd6b9724c734e0368da271",
+  "httpx>=0.28,<1",
+  "pydantic>=2.11,<3",
+]
+
+[project.entry-points."deckhand.plugins"]
+dh-proxmox = "dh_proxmox.plugin:create_plugin"
+
+[dependency-groups]
+dev = [
+  "mypy>=1.17,<2",
+  "pytest>=8.4,<9",
+  "pytest-asyncio>=1.1,<2",
+  "pyyaml>=6.0,<7",
+  "ruff>=0.12,<1",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/dh_proxmox"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.pytest.ini_options]
+addopts = "-q --strict-markers"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "S", "RUF"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["dh_proxmox"]

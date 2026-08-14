@@ -1,0 +1,110 @@
+schema_version: 1
+id: dh-proxmox
+name: Proxmox VE
+version: 0.1.0
+api_version: 1
+description: Read-only status and typed observation for configured Proxmox targets.
+adapters:
+  - dh-proxmox.read
+status_provider_types:
+  - proxmox-resource
+actions:
+  - proxmox.target.observe
+permissions:
+  mutation: false
+  credential_slots:
+    - proxmox.token_id
+    - proxmox.token_secret
+    - proxmox.tls_ca
+  egress_bindings:
+    - endpoint
+config_schema:
+  $schema: https://json-schema.org/draft/2020-12/schema
+  type: object
+  additionalProperties: false
+  required:
+    - endpoint
+    - token_id_file
+    - token_secret_file
+    - targets
+  properties:
+    endpoint:
+      type: string
+      format: uri
+      pattern: ^https://
+    token_id_file:
+      type: string
+      pattern: ^/
+    token_secret_file:
+      type: string
+      pattern: ^/
+    verify_tls:
+      type: boolean
+      default: true
+    ca_file:
+      type: string
+      pattern: ^/
+    timeout_seconds:
+      type: number
+      exclusiveMinimum: 0
+      maximum: 30
+    targets:
+      type: object
+      minProperties: 1
+      propertyNames:
+        pattern: ^[a-z][a-z0-9_]{0,63}$
+      additionalProperties:
+        type: object
+        additionalProperties: false
+        required:
+          - kind
+        properties:
+          kind:
+            enum:
+              - cluster
+              - node
+              - qemu
+              - lxc
+          node:
+            type: string
+            pattern: ^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$
+          vmid:
+            type: integer
+            minimum: 1
+            maximum: 999999999
+          stale_after_seconds:
+            type: integer
+            minimum: 1
+            maximum: 3600
+        allOf:
+          - if:
+              properties:
+                kind:
+                  const: cluster
+            then:
+              not:
+                anyOf:
+                  - required:
+                      - node
+                  - required:
+                      - vmid
+          - if:
+              properties:
+                kind:
+                  const: node
+            then:
+              required:
+                - node
+              not:
+                required:
+                  - vmid
+          - if:
+              properties:
+                kind:
+                  enum:
+                    - qemu
+                    - lxc
+            then:
+              required:
+                - node
+                - vmid
