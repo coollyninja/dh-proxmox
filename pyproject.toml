@@ -20,7 +20,7 @@ dh-proxmox = "dh_proxmox.plugin:create_plugin"
 
 [dependency-groups]
 dev = [
-  "mypy>=1.17,<2",
+  "mypy>=2.3.0,<3",
   "pytest>=8.4,<9",
   "pytest-asyncio>=1.1,<2",
   "pyyaml>=6.0,<7",
