@@ -10,7 +10,7 @@ readme = "README.md"
 license = "MIT"
 requires-python = ">=3.12"
 dependencies = [
-  "deckhand-control-plane @ git+https://github.com/coollyninja/deckhand.git@dad4c5835ecaf4105c351e14a173a69074e25967",
+  "deckhand-control-plane @ git+https://github.com/coollyninja/deckhand.git@0ab0c679f2c44fb0a2528caed3c5de88acf2dfd5",
   "httpx>=0.28,<1",
   "pydantic>=2.11,<3",
 ]
