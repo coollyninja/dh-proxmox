@@ -78,8 +78,8 @@ wheels = [
 
 [[package]]
 name = "deckhand-control-plane"
-version = "0.3.0"
-source = { git = "https://github.com/coollyninja/deckhand.git?rev=dad4c5835ecaf4105c351e14a173a69074e25967#dad4c5835ecaf4105c351e14a173a69074e25967" }
+version = "0.4.0"
+source = { git = "https://github.com/coollyninja/deckhand.git?rev=0ab0c679f2c44fb0a2528caed3c5de88acf2dfd5#0ab0c679f2c44fb0a2528caed3c5de88acf2dfd5" }
 dependencies = [
     { name = "fastapi" },
     { name = "httpx" },
@@ -113,7 +113,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "deckhand-control-plane", git = "https://github.com/coollyninja/deckhand.git?rev=dad4c5835ecaf4105c351e14a173a69074e25967" },
+    { name = "deckhand-control-plane", git = "https://github.com/coollyninja/deckhand.git?rev=0ab0c679f2c44fb0a2528caed3c5de88acf2dfd5" },
     { name = "httpx", specifier = ">=0.28,<1" },
     { name = "pydantic", specifier = ">=2.11,<3" },
 ]
