@@ -225,7 +225,7 @@ def test_core_discovers_and_loads_installed_plugin(tmp_path: Path) -> None:
         ),
         PluginLock(
             plugins=[
-                PluginLockEntry(id="dh-core", version="0.4.0", source="builtin"),
+                PluginLockEntry(id="dh-core", version="0.5.0", source="builtin"),
                 PluginLockEntry(id="dh-proxmox", version="0.1.0", source="python"),
             ]
         ),
